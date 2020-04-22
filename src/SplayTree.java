@@ -1,12 +1,5 @@
 /******************************************************************************
- *  Compilation:  javac SplayBST.java
- *  Execution:    java SplayBST
- *  Dependencies: none
- *  
- *  Splay tree. Supports splay-insert, -search, and -delete.
- *  Splays on every operation, regardless of the presence of the associated
- *  key prior to that operation.
- *
+ * Extraido de: https://algs4.cs.princeton.edu/33balanced/SplayBST.java.html
  *  Written by Josh Israel.
  *
  ******************************************************************************/
