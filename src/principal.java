@@ -1,15 +1,11 @@
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Map;
 import java.util.Scanner;
 
 public class principal {
 
-	@SuppressWarnings("unchecked")
+	
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		
 		Scanner entrada = new Scanner(System.in);
 		FactoryTree<String, String> factory  = new FactoryTree<String, String>();
@@ -50,6 +46,7 @@ public class principal {
 	                temp = ingles;
 	                
 	            }
+				inputScan.close();
 				
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
@@ -57,7 +54,6 @@ public class principal {
 			}
             
 			traductor.translateHash(mapDic);
-			//HashMap 
 			
 		}else if (opcion==2) {
 			//SplayTree
