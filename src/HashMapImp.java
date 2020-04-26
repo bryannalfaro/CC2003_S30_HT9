@@ -19,4 +19,8 @@ public class HashMapImp<K,V> implements MapInterface<K,V> {
 		if(mapa.containsKey(key)) return mapa.get(key);
         else return null ;
 	}
+	
+	public int size () {
+		return mapa.size();
+	}
 }
