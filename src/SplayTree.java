@@ -11,38 +11,27 @@
 
 public class SplayTree<K extends Comparable<K>, V> implements MapInterface<K, V> {
 
-    private Node root;   // root of the BST
-
-    // BST helper node data type
-    private class Node {
-        private K key;            // key
-        private V value;        // associated data
-        private Node left, right;   // left and right subtrees
-
-        public Node(K key, V value) {
-            this.key   = key;
-            this.value = value;
-        }
-    }
-
+    private Node root;   //Raiz del tree
+    
     public boolean contains(K key) {
         return get(key) != null;
     }
 
-    // return value associated with the given key
-    // if no such value, return null
+    /**
+     * Metodo que retorna el valor asociado a la llave.
+     */
     public V get(K key) {
         root = splay(root, key);
-        int cmp = key.compareTo(root.key);
-        if (cmp == 0) return root.value;
+        int cmp = key.compareTo((K) root.key);
+        if (cmp == 0) return (V) root.value;
         else          return null;
     }    
 
-   /***************************************************************************
-    *  Splay tree insertion.
-    ***************************************************************************/
+   /**
+    * Insertar elementos en el SplayTree
+    */
     public void put(K key, V value) {
-        // splay key to root
+        // Llave para la raiz
         if (root == null) {
             root = new Node(key, value);
             return;
@@ -50,9 +39,9 @@ public class SplayTree<K extends Comparable<K>, V> implements MapInterface<K, V>
         
         root = splay(root, key);
 
-        int cmp = key.compareTo(root.key);
+        int cmp = key.compareTo((K) root.key);
         
-        // Insert new node at root
+        // Inserta un nuevo nodo
         if (cmp < 0) {
             Node n = new Node(key, value);
             n.left = root.left;
@@ -61,7 +50,7 @@ public class SplayTree<K extends Comparable<K>, V> implements MapInterface<K, V>
             root = n;
         }
 
-        // Insert new node at root
+        // Inserta un nuevo nodo en la raiz
         else if (cmp > 0) {
             Node n = new Node(key, value);
             n.right = root.right;
@@ -70,30 +59,23 @@ public class SplayTree<K extends Comparable<K>, V> implements MapInterface<K, V>
             root = n;
         }
 
-        // It was a duplicate key. Simply replace the value
+        //Reemplaza el valor
         else {
             root.value = value;
         }
 
     }
     
-   /***************************************************************************
-    *  Splay tree deletion.
-    ***************************************************************************/
-    /* This splays the key, then does a slightly modified Hibbard deletion on
-     * the root (if it is the node to be deleted; if it is not, the key was 
-     * not in the tree). The modification is that rather than swapping the
-     * root (call it node A) with its successor, it's successor (call it Node B)
-     * is moved to the root position by splaying for the deletion key in A's 
-     * right subtree. Finally, A's right child is made the new root's right 
-     * child.
+    /**
+     * Se realiza la eliminacion de nodos en el arbol
+     * @param key
      */
     public void remove(K key) {
         if (root == null) return; // empty tree
         
         root = splay(root, key);
 
-        int cmp = key.compareTo(root.key);
+        int cmp = key.compareTo((K) root.key);
         
         if (cmp == 0) {
             if (root.left == null) {
@@ -106,28 +88,18 @@ public class SplayTree<K extends Comparable<K>, V> implements MapInterface<K, V>
                 root.right = x;
             }
         }
-
-        // else: it wasn't in the tree to remove
     }
     
-    
-   /***************************************************************************
-    * Splay tree function.
-    * **********************************************************************/
-    // splay key in the tree rooted at Node h. If a node with that key exists,
-    //   it is splayed to the root of the tree. If it does not, the last node
-    //   along the search path for the key is splayed to the root.
     private Node splay(Node h, K key) {
         if (h == null) return null;
 
-        int cmp1 = key.compareTo(h.key);
+        int cmp1 = key.compareTo((K) h.key);
 
         if (cmp1 < 0) {
-            // key not in tree, so we're done
             if (h.left == null) {
                 return h;
             }
-            int cmp2 = key.compareTo(h.left.key);
+            int cmp2 = key.compareTo((K) h.left.key);
             if (cmp2 < 0) {
                 h.left.left = splay(h.left.left, key);
                 h = rotateRight(h);
@@ -143,12 +115,12 @@ public class SplayTree<K extends Comparable<K>, V> implements MapInterface<K, V>
         }
 
         else if (cmp1 > 0) { 
-            // key not in tree, so we're done
+            
             if (h.right == null) {
                 return h;
             }
 
-            int cmp2 = key.compareTo(h.right.key);
+            int cmp2 = key.compareTo((K) h.right.key);
             if (cmp2 < 0) {
                 h.right.left  = splay(h.right.left, key);
                 if (h.right.left != null)
@@ -166,12 +138,10 @@ public class SplayTree<K extends Comparable<K>, V> implements MapInterface<K, V>
         else return h;
     }
 
-
-   /***************************************************************************
-    *  Helper functions.
-    ***************************************************************************/
-
-    // height of tree (1-node tree has height 0)
+    /**
+     * Tamano de arbol
+     * @return height
+     */
     public int height() { return height(root); }
     private int height(Node x) {
         if (x == null) return -1;
@@ -188,7 +158,11 @@ public class SplayTree<K extends Comparable<K>, V> implements MapInterface<K, V>
         else return 1 + size(x.left) + size(x.right);
     }
     
-    // right rotate
+    /**
+     * Se realiza la rotacion hacia la derecha
+     * @param h
+     * @return x
+     */
     private Node rotateRight(Node h) {
         Node x = h.left;
         h.left = x.right;
@@ -196,12 +170,13 @@ public class SplayTree<K extends Comparable<K>, V> implements MapInterface<K, V>
         return x;
     }
 
-    // left rotate
+    /**
+     * Se realiza la rotacion hacia la izquierda
+     * */
     private Node rotateLeft(Node h) {
         Node x = h.right;
         h.right = x.left;
         x.left = h;
         return x;
     }
-
 }

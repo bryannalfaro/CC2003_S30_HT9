@@ -1,12 +1,20 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
+/**
+ * Clase principal para la traduccion del archivo
+ * @author Bryann Alfaro
+ * @author Diego de Jesus
+ *
+ */
 public class principal {
 
 	
 	public static void main(String[] args) {
 		
+		/**
+		 * Variables 
+		 */
 		Scanner entrada = new Scanner(System.in);
 		FactoryTree<String, String> factory  = new FactoryTree<String, String>();
 		MapInterface<String, String> mapDic;
@@ -19,13 +27,14 @@ public class principal {
 		
 		int opcion= entrada.nextInt();
 		
+		//Si se desea la implementacion por hashmap
 		if(opcion==1) {
 			mapDic= factory.getFactoryMap(1);
 			
 			try {
-				String directorioNuevo = System.getProperty("user.dir");
+				String directorioTexto = System.getProperty("user.dir");
 	            
-				Scanner inputScan = new Scanner(new File(directorioNuevo + "\\src\\Spanish.txt"));
+				Scanner inputScan = new Scanner(new File(directorioTexto + "\\src\\Spanish.txt"));
 				while (inputScan.hasNextLine()) {
 	                String line = inputScan.nextLine();
 	                int indice_particion = line.lastIndexOf("	");
@@ -49,14 +58,16 @@ public class principal {
 				inputScan.close();
 				
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
             
-			traductor.translateHash(mapDic);
+			traductor.translateHash(mapDic); //Se realiza la traduccion
 			
-		}else if (opcion==2) {
-			//SplayTree
+		}
+		//Si se desea la implementacion por splay Tree
+		else if (opcion==2) {
+			
 			mapDic= factory.getFactoryMap(2);
 			try {
 				String directorioNuevo = System.getProperty("user.dir");
@@ -85,11 +96,11 @@ public class principal {
 				inputScan.close();
 				
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
+				
 				e.printStackTrace();
 			}
             
-			traductor.translateSplay(mapDic);
+			traductor.translateSplay(mapDic); //Se realiza la traduccion
 			
 		}
 

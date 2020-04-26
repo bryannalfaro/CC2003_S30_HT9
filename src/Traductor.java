@@ -1,9 +1,19 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-
+/**
+ * Clase donde se realiza la traduccion del archivo
+ * dependiendo del tipo de mapa.
+ * @author Bryann Alfaro
+ * @author Diego de Jesus
+ *
+ */
 public class Traductor {
 	
+	/**
+	 * Traducir si es la implementacion de HashMap
+	 * @param map
+	 */
 	public void translateHash(MapInterface<String, String> map) {
 		Scanner entrada = new Scanner(System.in);
 		String word = "";
@@ -46,6 +56,10 @@ public class Traductor {
 		System.out.println(sentence); 
 	}
 	
+	/**
+	 * Traduccion si es implementacion de splay tree
+	 * @param map
+	 */
 	public void translateSplay(MapInterface<String, String> map) {
 		Scanner entrada = new Scanner(System.in);
 		String word = "";

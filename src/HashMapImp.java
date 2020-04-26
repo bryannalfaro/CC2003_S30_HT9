@@ -9,8 +9,14 @@ import java.util.HashMap;
  **/
 public class HashMapImp<K,V> implements MapInterface<K,V> {
 	
+	/**
+	 * Mapa interno donde se usa hashMap de java
+	 */
 	HashMap<K,V> mapa = new HashMap<K,V>();
 	
+	/**
+	 * Se implementan los metodos de la interface
+	 */
 	public void put (K key, V value) {
 		mapa.put(key, value);
 	}
