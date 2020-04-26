@@ -1,5 +1,5 @@
 
-public interface Map<K, V> {
+public interface MapInterface<K, V> {
 	
 	public void put (K key, V value);
 

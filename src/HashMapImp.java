@@ -1,6 +1,6 @@
 import java.util.HashMap;
 
-public class HashMapImp<K,V> implements Map<K,V> {
+public class HashMapImp<K,V> implements MapInterface<K,V> {
 	
 	HashMap<K,V> mapa = new HashMap<K,V>();
 	
