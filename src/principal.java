@@ -57,6 +57,39 @@ public class principal {
 			
 		}else if (opcion==2) {
 			//SplayTree
+			mapDic= factory.getFactoryMap(2);
+			try {
+				String directorioNuevo = System.getProperty("user.dir");
+	            
+				Scanner inputScan = new Scanner(new File(directorioNuevo + "\\src\\Spanish.txt"));
+				while (inputScan.hasNextLine()) {
+	                String line = inputScan.nextLine();
+	                int indice_particion = line.lastIndexOf("	");
+	                String ingles = line.substring(0,indice_particion).trim();
+	                if(!ingles.equals(temp)) {
+	                	String espanol = line.substring(indice_particion+1).trim();
+		                if(espanol.indexOf(",") > -1) {
+		                	espanol = espanol.substring(0, espanol.indexOf(","));
+		                } else if (espanol.indexOf(";") > -1) {
+		                	espanol = espanol.substring(0, espanol.indexOf(";"));
+						} else if (espanol.indexOf("(") > -1) {
+							espanol = espanol.substring(0, espanol.indexOf("("));
+						} else if (espanol.indexOf("[") > -1) {
+							espanol = espanol.substring(0, espanol.indexOf("["));
+						}
+		                mapDic.put(ingles,espanol);
+	                }
+	                temp = ingles;
+	                
+	            }
+				inputScan.close();
+				
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+            
+			traductor.translateSplay(mapDic);
 			
 		}
 
