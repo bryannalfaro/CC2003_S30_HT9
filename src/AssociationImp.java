@@ -1,4 +1,10 @@
-
+/**
+ * @author Bryann Alfaro 
+ * @author Diego de Jesus
+ * @since April 26, 2020
+ * 
+ * Clase donde se encuentra el Association
+ **/
 public class AssociationImp <K,V> {
 		
 		//Variables

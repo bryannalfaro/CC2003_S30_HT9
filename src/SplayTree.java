@@ -1,8 +1,12 @@
-/******************************************************************************
- * Extraido de: https://algs4.cs.princeton.edu/33balanced/SplayBST.java.html
- *  Written by Josh Israel.
- *
- ******************************************************************************/
+/**
+ * @author Bryann Alfaro 
+ * @author Diego de Jesus
+ * @since April 26, 2020
+ * 
+ * Clase donde se encuentra el Splay Tree
+ * 
+ * El codigo utilizado fue extraido de: https://algs4.cs.princeton.edu/33balanced/SplayBST.java.html
+ **/
 
 
 public class SplayTree<K extends Comparable<K>, V> implements MapInterface<K, V> {
