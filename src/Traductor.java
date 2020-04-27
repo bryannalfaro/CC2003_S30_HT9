@@ -18,10 +18,17 @@ public class Traductor {
 		Scanner entrada = new Scanner(System.in);
 		String word = "";
 		String sentence = "";
+		Scanner inputScan;
 		try {
 			String directorioNuevo = System.getProperty("user.dir");
 	        
-			Scanner inputScan = new Scanner(new File(directorioNuevo + "\\src\\ejemplo.txt"));
+			
+			if(directorioNuevo.contains("src")) {
+            	inputScan = new Scanner(new File(directorioNuevo + "\\ejemplo.txt"));
+            }else {
+            	inputScan = new Scanner(new File(directorioNuevo + "\\src\\ejemplo.txt"));
+            }
+			
 			while (inputScan.hasNextLine()) {
 	            String line = inputScan.nextLine();
 	            String[] tranlateLine = line.split(" ");
@@ -64,10 +71,15 @@ public class Traductor {
 		Scanner entrada = new Scanner(System.in);
 		String word = "";
 		String sentence = "";
+		Scanner inputScan;
 		try {
 			String directorioNuevo = System.getProperty("user.dir");
 	        
-			Scanner inputScan = new Scanner(new File(directorioNuevo + "\\src\\ejemplo.txt"));
+			if(directorioNuevo.contains("src")) {
+            	inputScan = new Scanner(new File(directorioNuevo + "\\ejemplo.txt"));
+            }else {
+            	inputScan = new Scanner(new File(directorioNuevo + "\\src\\ejemplo.txt"));
+            }
 			while (inputScan.hasNextLine()) {
 	            String line = inputScan.nextLine();
 	            String[] tranlateLine = line.split(" ");

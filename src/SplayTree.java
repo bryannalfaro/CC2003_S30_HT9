@@ -11,7 +11,7 @@
 
 public class SplayTree<K extends Comparable<K>, V> implements MapInterface<K, V> {
 
-    private Node root;   //Raiz del tree
+    private Node raiz;   //Raiz del tree
     
     public boolean contains(K key) {
         return get(key) != null;
@@ -20,129 +20,129 @@ public class SplayTree<K extends Comparable<K>, V> implements MapInterface<K, V>
     /**
      * Metodo que retorna el valor asociado a la llave.
      */
-    public V get(K key) {
-        root = splay(root, key);
-        int cmp = key.compareTo((K) root.key);
-        if (cmp == 0) return (V) root.value;
+    public V get(K llave) {
+        raiz = splay(raiz, llave);
+        int cmp = llave.compareTo((K) raiz.key);
+        if (cmp == 0) return (V) raiz.value;
         else          return null;
     }    
 
    /**
     * Insertar elementos en el SplayTree
     */
-    public void put(K key, V value) {
+    public void put(K llave, V valor) {
         // Llave para la raiz
-        if (root == null) {
-            root = new Node(key, value);
+        if (raiz == null) {
+            raiz = new Node(llave, valor);
             return;
         }
         
-        root = splay(root, key);
+        raiz = splay(raiz, llave);
 
-        int cmp = key.compareTo((K) root.key);
+        int comparar = llave.compareTo((K) raiz.key);
         
         // Inserta un nuevo nodo
-        if (cmp < 0) {
-            Node n = new Node(key, value);
-            n.left = root.left;
-            n.right = root;
-            root.left = null;
-            root = n;
+        if (comparar < 0) {
+            Node nodo = new Node(llave, valor);
+            nodo.left = raiz.left;
+            nodo.right = raiz;
+            raiz.left = null;
+            raiz = nodo;
         }
 
         // Inserta un nuevo nodo en la raiz
-        else if (cmp > 0) {
-            Node n = new Node(key, value);
-            n.right = root.right;
-            n.left = root;
-            root.right = null;
-            root = n;
+        else if (comparar > 0) {
+            Node nodo = new Node(llave, valor);
+            nodo.right = raiz.right;
+            nodo.left = raiz;
+            raiz.right = null;
+            raiz = nodo;
         }
 
         //Reemplaza el valor
         else {
-            root.value = value;
+            raiz.value = valor;
         }
 
     }
     
     /**
      * Se realiza la eliminacion de nodos en el arbol
-     * @param key
+     * @param llave
      */
-    public void remove(K key) {
-        if (root == null) return; // empty tree
+    public void remove(K llave) {
+        if (raiz == null) return; // empty tree
         
-        root = splay(root, key);
+        raiz = splay(raiz, llave);
 
-        int cmp = key.compareTo((K) root.key);
+        int comparar = llave.compareTo((K) raiz.key);
         
-        if (cmp == 0) {
-            if (root.left == null) {
-                root = root.right;
+        if (comparar == 0) {
+            if (raiz.left == null) {
+                raiz = raiz.right;
             } 
             else {
-                Node x = root.right;
-                root = root.left;
-                splay(root, key);
-                root.right = x;
+                Node x = raiz.right;
+                raiz = raiz.left;
+                splay(raiz, llave);
+                raiz.right = x;
             }
         }
     }
     
-    private Node splay(Node h, K key) {
-        if (h == null) return null;
+    private Node splay(Node hNode, K key) {
+        if (hNode == null) return null;
 
-        int cmp1 = key.compareTo((K) h.key);
+        int cmp1 = key.compareTo((K) hNode.key);
 
         if (cmp1 < 0) {
-            if (h.left == null) {
-                return h;
+            if (hNode.left == null) {
+                return hNode;
             }
-            int cmp2 = key.compareTo((K) h.left.key);
+            int cmp2 = key.compareTo((K) hNode.left.key);
             if (cmp2 < 0) {
-                h.left.left = splay(h.left.left, key);
-                h = rotateRight(h);
+                hNode.left.left = splay(hNode.left.left, key);
+                hNode = rotateRight(hNode);
             }
             else if (cmp2 > 0) {
-                h.left.right = splay(h.left.right, key);
-                if (h.left.right != null)
-                    h.left = rotateLeft(h.left);
+                hNode.left.right = splay(hNode.left.right, key);
+                if (hNode.left.right != null)
+                    hNode.left = rotateLeft(hNode.left);
             }
             
-            if (h.left == null) return h;
-            else                return rotateRight(h);
+            if (hNode.left == null) return hNode;
+            else                return rotateRight(hNode);
         }
 
         else if (cmp1 > 0) { 
             
-            if (h.right == null) {
-                return h;
+            if (hNode.right == null) {
+                return hNode;
             }
 
-            int cmp2 = key.compareTo((K) h.right.key);
+            int cmp2 = key.compareTo((K) hNode.right.key);
             if (cmp2 < 0) {
-                h.right.left  = splay(h.right.left, key);
-                if (h.right.left != null)
-                    h.right = rotateRight(h.right);
+                hNode.right.left  = splay(hNode.right.left, key);
+                if (hNode.right.left != null)
+                    hNode.right = rotateRight(hNode.right);
             }
             else if (cmp2 > 0) {
-                h.right.right = splay(h.right.right, key);
-                h = rotateLeft(h);
+                hNode.right.right = splay(hNode.right.right, key);
+                hNode = rotateLeft(hNode);
             }
             
-            if (h.right == null) return h;
-            else                 return rotateLeft(h);
+            if (hNode.right == null) return hNode;
+            else                 return rotateLeft(hNode);
         }
 
-        else return h;
+        else return hNode;
     }
 
     /**
      * Tamano de arbol
      * @return height
      */
-    public int height() { return height(root); }
+    public int height() { return height(raiz); }
     private int height(Node x) {
         if (x == null) return -1;
         return 1 + Math.max(height(x.left), height(x.right));
@@ -150,7 +150,7 @@ public class SplayTree<K extends Comparable<K>, V> implements MapInterface<K, V>
 
     
     public int size() {
-        return size(root);
+        return size(raiz);
     }
     
     private int size(Node x) {

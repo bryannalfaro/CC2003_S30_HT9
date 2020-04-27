@@ -30,11 +30,18 @@ public class principal {
 		//Si se desea la implementacion por hashmap
 		if(opcion==1) {
 			mapDic= factory.getFactoryMap(1);
-			
+			String directorioTexto = System.getProperty("user.dir");
+			Scanner inputScan;
 			try {
-				String directorioTexto = System.getProperty("user.dir");
-	            
-				Scanner inputScan = new Scanner(new File(directorioTexto + "\\src\\Spanish.txt"));
+				
+				
+	            if(directorioTexto.contains("src")) {
+	            	inputScan = new Scanner(new File(directorioTexto + "\\Spanish.txt"));
+	            }else {
+	            	inputScan = new Scanner(new File(directorioTexto + "\\src\\Spanish.txt"));
+	            }
+				
+				
 				while (inputScan.hasNextLine()) {
 	                String line = inputScan.nextLine();
 	                int indice_particion = line.lastIndexOf("	");
@@ -69,10 +76,16 @@ public class principal {
 		else if (opcion==2) {
 			
 			mapDic= factory.getFactoryMap(2);
+			Scanner inputScan;
 			try {
 				String directorioNuevo = System.getProperty("user.dir");
+				
+				if(directorioNuevo.contains("src")) {
+	            	inputScan = new Scanner(new File(directorioNuevo + "\\Spanish.txt"));
+	            }else {
+	            	inputScan = new Scanner(new File(directorioNuevo + "\\src\\Spanish.txt"));
+	            }
 	            
-				Scanner inputScan = new Scanner(new File(directorioNuevo + "\\src\\Spanish.txt"));
 				while (inputScan.hasNextLine()) {
 	                String line = inputScan.nextLine();
 	                int indice_particion = line.lastIndexOf("	");
